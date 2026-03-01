@@ -1,4 +1,8 @@
+
+
 "use client";
+export const dynamic = "force-dynamic";
+
 import { useGetUsersAllCoursesQuery } from "@/redux/features/courses/coursesApi";
 import { useGetHeroDataQuery } from "@/redux/features/layout/layoutApi";
 import { useSearchParams } from "next/navigation";
