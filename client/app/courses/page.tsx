@@ -1,12 +1,10 @@
-
-
 "use client";
 export const dynamic = "force-dynamic";
 
 import { useGetUsersAllCoursesQuery } from "@/redux/features/courses/coursesApi";
 import { useGetHeroDataQuery } from "@/redux/features/layout/layoutApi";
 import { useSearchParams } from "next/navigation";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import Loader from "../components/Loader/Loader";
 import Header from "../components/Header";
 import Heading from "../utils/Heading";
@@ -15,7 +13,7 @@ import Footer from "../components/Footer";
 
 type Props = {};
 
-const Page = (props: Props) => {
+const CoursesContent = () => {
   const searchParams = useSearchParams();
   const search = searchParams?.get("title");
   const { data, isLoading } = useGetUsersAllCoursesQuery(undefined, {});
@@ -78,7 +76,6 @@ const Page = (props: Props) => {
           </div>
 
           <div className="max-w-6xl mx-auto px-4 py-10">
-
             {/* Category Filter */}
             <div className="flex items-center gap-2 flex-wrap mb-8">
               <button
@@ -136,6 +133,14 @@ const Page = (props: Props) => {
         </>
       )}
     </div>
+  );
+};
+
+const Page = (props: Props) => {
+  return (
+    <Suspense fallback={<Loader />}>
+      <CoursesContent />
+    </Suspense>
   );
 };
 
